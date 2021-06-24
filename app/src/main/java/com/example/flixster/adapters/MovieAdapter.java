@@ -21,12 +21,18 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
+    public interface OnClickListener {
+        void onItemClicked(int position);
+    }
+
     Context context;
     List<Movie> movies;
+    OnClickListener clickListener;
 
-    public MovieAdapter(Context context, List<Movie> movies) {
+    public MovieAdapter(Context context, List<Movie> movies, OnClickListener onClickListener) {
         this.context = context;
         this.movies = movies;
+        this.clickListener = onClickListener;
     }
 
 
@@ -92,6 +98,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                     .load(imageURL)
                     .placeholder(placeHolder)
                     .into(ivPoster);
+
+            tvOverview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onItemClicked(getAdapterPosition());
+                }
+            });
         }
     }
 }
