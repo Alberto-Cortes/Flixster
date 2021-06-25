@@ -19,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
     public interface OnClickListener {
@@ -97,6 +99,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             Glide.with(context)
                     .load(imageURL)
                     .placeholder(placeHolder)
+                    .transform(new RoundedCornersTransformation(40, 0))
                     .into(ivPoster);
 
             tvOverview.setOnClickListener(new View.OnClickListener() {
