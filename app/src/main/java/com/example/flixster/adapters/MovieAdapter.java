@@ -6,6 +6,8 @@ import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.flixster.R;
-import com.example.flixster.databinding.ItemMovieBinding;
 import com.example.flixster.models.Movie;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +28,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     public interface OnClickListener {
         void onItemClicked(int position);
+    }
+
+    public void animate(RecyclerView.ViewHolder viewHolder) {
+        final Animation animAnticipateOvershoot = AnimationUtils.loadAnimation(context, R.anim.bounce_interpolator);
+        viewHolder.itemView.setAnimation(animAnticipateOvershoot);
     }
 
     Context context;
@@ -55,6 +61,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
         Movie movie = movies.get(position);
         holder.bind(movie);
+        animate(holder);
     }
 
     // Get size of list fed to view.
